@@ -1,0 +1,450 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BeaCreator | Ad Video Library</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: #29233d;
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 10% 10%, #f3dfff 0, transparent 35%),
+        radial-gradient(circle at 90% 20%, #ffe1ec 0, transparent 35%),
+        linear-gradient(135deg, #fffaff, #f7f5ff);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 7%;
+    background: rgba(255,255,255,0.65);
+    border-bottom: 1px solid rgba(255,255,255,0.9);
+    backdrop-filter: blur(16px);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.logo {
+    width: 43px;
+    height: 43px;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    color: white;
+    background: linear-gradient(135deg, #9b5cff, #ed75bd);
+    box-shadow: 0 6px 18px #bc8af04a;
+}
+
+.badge {
+    padding: 9px 14px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: bold;
+    background: #f0e5ff;
+    color: #8144d5;
+}
+
+.container {
+    width: 86%;
+    max-width: 1150px;
+    margin: auto;
+}
+
+.hero {
+    text-align: center;
+    padding: 75px 10px 45px;
+}
+
+.eyebrow {
+    display: inline-block;
+    padding: 9px 16px;
+    border-radius: 30px;
+    color: #8a50d5;
+    background: white;
+    border: 1px solid #edddff;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 22px;
+}
+
+h1 {
+    font-size: clamp(36px, 5vw, 58px);
+    letter-spacing: -2px;
+    line-height: 1.12;
+    margin-bottom: 18px;
+}
+
+.gradient-text {
+    background: linear-gradient(90deg, #9756f5, #ed72b5);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.hero p {
+    color: #777087;
+    font-size: 16px;
+    line-height: 1.8;
+    max-width: 580px;
+    margin: auto;
+}
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin: 25px 0;
+    flex-wrap: wrap;
+}
+
+.toolbar h2 {
+    font-size: 23px;
+}
+
+.search {
+    padding: 13px 17px;
+    width: 270px;
+    max-width: 100%;
+    border: 1px solid #e8def5;
+    border-radius: 13px;
+    background: rgba(255,255,255,.85);
+    font-size: 14px;
+    outline: none;
+}
+
+.search:focus {
+    border-color: #a66bf1;
+    box-shadow: 0 0 0 3px #a66bf120;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 23px;
+    padding-bottom: 65px;
+}
+
+.card {
+    overflow: hidden;
+    background: rgba(255,255,255,.78);
+    border: 1px solid white;
+    border-radius: 22px;
+    box-shadow: 0 12px 40px #7351a30b;
+    transition: transform .25s, box-shadow .25s;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 45px #7351a31c;
+}
+
+.preview {
+    height: 185px;
+    display: grid;
+    place-items: center;
+    position: relative;
+    background: linear-gradient(135deg, #e8d8ff, #ffdce9);
+}
+
+.card:nth-child(3n+2) .preview {
+    background: linear-gradient(135deg, #dce8ff, #f1dcff);
+}
+
+.card:nth-child(3n) .preview {
+    background: linear-gradient(135deg, #ffe6dc, #fbd8f1);
+}
+
+.play {
+    display: grid;
+    place-items: center;
+    width: 59px;
+    height: 59px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.78);
+    color: #8c51dc;
+    font-size: 23px;
+    padding-left: 4px;
+    box-shadow: 0 5px 20px #4d286c15;
+}
+
+.format {
+    position: absolute;
+    left: 13px;
+    top: 13px;
+    padding: 7px 10px;
+    border-radius: 8px;
+    background: #ffffffd9;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.duration {
+    position: absolute;
+    right: 13px;
+    bottom: 13px;
+    padding: 6px 9px;
+    border-radius: 7px;
+    color: white;
+    background: #332745bd;
+    font-size: 11px;
+}
+
+.card-content {
+    padding: 21px;
+}
+
+.card-content h3 {
+    font-size: 17px;
+    margin-bottom: 9px;
+}
+
+.card-content p {
+    font-size: 13px;
+    color: #82798f;
+    line-height: 1.6;
+    min-height: 42px;
+}
+
+.meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    color: #81778e;
+    font-size: 12px;
+    margin: 18px 0;
+}
+
+.download {
+    display: block;
+    width: 100%;
+    padding: 13px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 12px;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    background: linear-gradient(100deg, #9758ef, #d76bd2);
+    box-shadow: 0 7px 18px #ad6be62b;
+    transition: opacity .2s, transform .2s;
+}
+
+.download:hover {
+    opacity: .9;
+    transform: scale(1.015);
+}
+
+.empty {
+    display: none;
+    text-align: center;
+    color: #82798f;
+    padding: 30px;
+}
+
+.footer {
+    border-top: 1px solid #eae2f3;
+    padding: 27px 7%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    color: #898095;
+    font-size: 13px;
+}
+
+.footer strong {
+    color: #8652d1;
+}
+
+@media(max-width: 900px) {
+    .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media(max-width: 580px) {
+    .navbar {
+        padding: 16px 5%;
+    }
+
+    .container {
+        width: 90%;
+    }
+
+    .hero {
+        padding-top: 55px;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .toolbar {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .search {
+        width: 100%;
+    }
+
+    .footer {
+        padding: 24px 5%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="brand">
+        <div class="logo">B</div>
+        <span>BeaCreator</span>
+    </div>
+    <span class="badge">OFFICIAL MEDIA</span>
+</header>
+
+<main>
+    <section class="hero">
+        <div class="eyebrow">BEACREATOR MEDIA CENTER</div>
+        <h1>Your brand.<br><span class="gradient-text">Ready to download.</span></h1>
+        <p>
+            Access our official promotional videos, ad creatives,
+            and campaign assets. Find your video and download it
+            whenever you need it.
+        </p>
+    </section>
+
+    <section class="container">
+        <div class="toolbar">
+            <h2>Ad video library</h2>
+            <input
+                class="search"
+                id="search"
+                type="search"
+                placeholder="Search videos..."
+                aria-label="Search ad videos"
+            >
+        </div>
+
+        <div class="grid" id="videoGrid">
+
+            <!-- VIDEO 1: Replace the filename with your actual video -->
+            <article class="card" data-search="brand introduction promo">
+                <div class="preview">
+                    <span class="format">MP4 VIDEO</span>
+                    <div class="play">▶</div>
+                    <span class="duration">Brand Ad</span>
+                </div>
+                <div class="card-content">
+                    <h3>BeaCreator — Brand Introduction</h3>
+                    <p>Introduce your brand and showcase what BeaCreator offers.</p>
+                    <div class="meta">
+                        <span>Promotional</span>
+                        <span>1080p ready</span>
+                    </div>
+                    <a class="download"
+                       href="videos/beacreator-brand.mp4"
+                       download>↓ Download video</a>
+                </div>
+            </article>
+
+            <!-- VIDEO 2 -->
+            <article class="card" data-search="social media advertisement instagram reels">
+                <div class="preview">
+                    <span class="format">MP4 VIDEO</span>
+                    <div class="play">▶</div>
+                    <span class="duration">Social Ad</span>
+                </div>
+                <div class="card-content">
+                    <h3>Social Media Advertisement</h3>
+                    <p>A promotional creative for social media campaigns and reels.</p>
+                    <div class="meta">
+                        <span>Social Media</span>
+                        <span>MP4</span>
+                    </div>
+                    <a class="download"
+                       href="videos/beacreator-social-ad.mp4"
+                       download>↓ Download video</a>
+                </div>
+            </article>
+
+            <!-- VIDEO 3 -->
+            <article class="card" data-search="product launch campaign marketing">
+                <div class="preview">
+                    <span class="format">MP4 VIDEO</span>
+                    <div class="play">▶</div>
+                    <span class="duration">Campaign</span>
+                </div>
+                <div class="card-content">
+                    <h3>BeaCreator Campaign Ad</h3>
+                    <p>Promote your creator tools with a dedicated campaign video.</p>
+                    <div class="meta">
+                        <span>Marketing</span>
+                        <span>MP4</span>
+                    </div>
+                    <a class="download"
+                       href="videos/beacreator-campaign.mp4"
+                       download>↓ Download video</a>
+                </div>
+            </article>
+
+        </div>
+
+        <div class="empty" id="empty">
+            No videos found. Try another search.
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <span>© 2026 <strong>BeaCreator</strong></span>
+    <span>Made for creators, built for growth.</span>
+</footer>
+
+<script>
+const search = document.getElementById("search");
+const cards = document.querySelectorAll(".card");
+const empty = document.getElementById("empty");
+
+search.addEventListener("input", function () {
+    const query = this.value.toLowerCase().trim();
+    let visible = 0;
+
+    cards.forEach(card => {
+        const matches = (
+            card.innerText + " " + card.dataset.search
+        ).toLowerCase().includes(query);
+
+        card.style.display = matches ? "" : "none";
+
+        if (matches) visible++;
+    });
+
+    empty.style.display = visible === 0 ? "block" : "none";
+});
+</script>
+
+</body>
+</html>
+
